@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Load data
 # Get all txt files in data/
-files = sorted(Path("data").glob("*.txt"))
+files = sorted(Path("data").glob("*.dat"))
 
 # Create dropdown
 selected_file = st.selectbox(
