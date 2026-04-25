@@ -62,5 +62,11 @@ fig.update_layout(
 )
 
 # ---- render ----
-st.plotly_chart(fig, use_container_width=True)
-
+st.plotly_chart(
+    fig,
+    use_container_width=True,
+    config={
+        "displayModeBar": True,
+        "modeBarButtonsToAdd": ["fullscreen"]
+    }
+)
