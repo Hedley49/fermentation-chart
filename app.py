@@ -17,7 +17,6 @@ selected_file = st.selectbox(
 # Load selected file
 if selected_file:
     df = pd.read_csv(selected_file, sep=r"\s+", header=None)
-    st.write(f"Loaded: {selected_file.name}")
     df.columns = ["time", "env", "beer", "ref", "color"]
 
     # Parse time (gnuplot: "%m:%d:%h:%m:%s")
@@ -66,21 +65,29 @@ if selected_file:
 
     # ---- layout (match gnuplot formatting) ----
     fig.update_layout(
+        height=520,
         yaxis=dict(range=[60, 86], title="Value"),
         xaxis=dict(
             title="Time",
-            tickformat="%M:%S\n%d/%b"
+            # Keep the labels readable by splitting time and date across lines.
+            tickformat="%H:%M<br>%m/%d",
+            nticks=7,
+            automargin=True,
+            ticklabeloverflow="hide past div",
         ),
+        hovermode="x unified",
         legend=dict(orientation="h"),
-        margin=dict(l=40, r=20, t=40, b=40)
+        margin=dict(l=50, r=20, t=40, b=100)
     )
 
     # ---- render ----
-    st.plotly_chart(
-        fig,
-        use_container_width=True,
-        config={
-            "displayModeBar": True,
-            "modeBarButtonsToAdd": ["fullscreen"]
-        }
-    )
+    with st.container(border=True):
+        st.write(f"Loaded: {selected_file.name}")
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config={
+                "displayModeBar": True,
+                "modeBarButtonsToAdd": ["fullscreen"]
+            }
+        )

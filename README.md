@@ -12,5 +12,14 @@ git add .
 git commit -m "write any message here to remind yourself what changed from the last version"
 git push
 
-view here:
+# from internet view here
 https://glenns-fermentation-chart.streamlit.app/
+
+# editor
+  Visual Studio Code (Version: 1.117.0)
+
+# AI helper
+CODEX
+  (location => right side of editor) 
+
+
