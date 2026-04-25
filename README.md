@@ -2,6 +2,7 @@
 plot temperature of beer equipment
 
 # run locally
+cd ~/projects/fermentation-chart
 uv run streamlit run app.py
 http://localhost:8501/
 
