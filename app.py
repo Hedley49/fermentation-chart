@@ -1,20 +1,15 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 
-st.write("Streamlit supports a wide range of data visualizations, including [Plotly, Altair, and Bokeh charts](https://docs.streamlit.io/develop/api-reference/charts). 📊 And with over 20 input widgets, you can easily make your data interactive!")
+# Load data
+df = pd.read_csv("x1.txt", sep=r"\s+", header=None)
+df.columns = ["time", "env", "beer", "ref", "color"]
 
-all_users = ["Alice", "Bob", "Charly", open("data.txt").read()]
-with st.container(border=True):
-    users = st.multiselect("Users", all_users, default=all_users)
-    rolling_average = st.toggle("Rolling average")
+# Parse time
+df["time"] = pd.to_datetime(df["time"], format="%m:%d:%H:%M:%S")
 
-np.random.seed(42)
-data = pd.DataFrame(np.random.randn(20, len(users)), columns=users)
-if rolling_average:
-    data = data.rolling(7).mean().dropna()
+# Set index for plotting
+df = df.set_index("time")
 
-tab1, tab2 = st.tabs(["Chart", "Dataframe"])
-tab1.line_chart(data, height=250)
-tab2.dataframe(data, height=250, use_container_width=True)
-
+# Basic line chart
+st.line_chart(df[["env", "beer", "ref"]])
